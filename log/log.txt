@@ -1,0 +1,3 @@
+2020-08-30 16:58:41,809 - [ERROR] - test_recharge_api - case - [日志信息]抛出的异常为 :: {"code":0,"msg":"OK","data":{"id":1129550,"leave_amount":1000.0,"mobile_phone":"18224516078","reg_name":"invest_use","reg_time":"2020-08-30 16:55:17.0","type":0},"copyright":"Copyright 柠檬班 © 2017-2020 湖南省零檬信息技术有限公司 All Rights Reserved"} != {"code":0,"msg":"OK","data":{"id":1129586,"leave_amount":1000.0,"mobile_phone":"18231728456","reg_name":"invest_use","reg_time":"2020-08-30 16:58:41.0","type":0},"copyright":"Copyright 柠檬班 © 2017-2020 湖南省零檬信息技术有限公司 All Rights Reserved"}
+2020-08-30 17:28:50,388 - [ERROR] - test_api_reg - case - [日志信息]抛出的异常为1 != 2
+2020-09-15 20:06:52,111 - [ERROR] - test_api_reg - case - [日志信息]抛出的异常为 :: 2 != 0

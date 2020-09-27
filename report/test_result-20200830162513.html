@@ -1,0 +1,2483 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>注册测试用例</title>
+    <meta name="generator" content="HTMLTestRunner 0.8.2.2"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link href="http://libs.baidu.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet">
+    <script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+    <script src="http://libs.baidu.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+    
+<style type="text/css" media="screen">
+body        { font-family: Microsoft YaHei,Tahoma,arial,helvetica,sans-serif;padding: 20px; font-size: 120%; }
+table       { font-size: 100%; }
+/* -- heading ---------------------------------------------------------------------- */
+.heading {
+    margin-top: 0ex;
+    margin-bottom: 1ex;
+}
+.heading .description {
+    margin-top: 4ex;
+    margin-bottom: 6ex;
+}
+/* -- report ------------------------------------------------------------------------ */
+#total_row  { font-weight: bold; }
+.passCase   { color: #5cb85c; }
+.failCase   { color: #d9534f; font-weight: bold; }
+.errorCase  { color: #f0ad4e; font-weight: bold; }
+.hiddenRow  { display: none; }
+.testcase   { margin-left: 2em; }
+</style>
+
+</head>
+<body >
+<script language="javascript" type="text/javascript">
+output_list = Array();
+/*level 调整增加只显示通过用例的分类 --Findyou
+0:Summary //all hiddenRow
+1:Failed  //pt hiddenRow, ft none
+2:Pass    //pt none, ft hiddenRow
+3:All     //pt none, ft none
+*/
+function showCase(level) {
+    trs = document.getElementsByTagName("tr");
+    for (var i = 0; i < trs.length; i++) {
+        tr = trs[i];
+        id = tr.id;
+        if (id.substr(0,2) == 'ft') {
+            if (level == 2 || level == 0 ) {
+                tr.className = 'hiddenRow';
+            }
+            else {
+                tr.className = '';
+            }
+        }
+        if (id.substr(0,2) == 'pt') {
+            if (level < 2) {
+                tr.className = 'hiddenRow';
+            }
+            else {
+                tr.className = '';
+            }
+        }
+    }
+    //加入【详细】切换文字变化 --Findyou
+    detail_class=document.getElementsByClassName('detail');
+	//console.log(detail_class.length)
+	if (level == 3) {
+		for (var i = 0; i < detail_class.length; i++){
+			detail_class[i].innerHTML="收起"
+		}
+	}
+	else{
+			for (var i = 0; i < detail_class.length; i++){
+			detail_class[i].innerHTML="详细"
+		}
+	}
+}
+function showClassDetail(cid, count) {
+    var id_list = Array(count);
+    var toHide = 1;
+    for (var i = 0; i < count; i++) {
+        //ID修改 点 为 下划线 -Findyou
+        tid0 = 't' + cid.substr(1) + '_' + (i+1);
+        tid = 'f' + tid0;
+        tr = document.getElementById(tid);
+        if (!tr) {
+            tid = 'p' + tid0;
+            tr = document.getElementById(tid);
+        }
+        id_list[i] = tid;
+        if (tr.className) {
+            toHide = 0;
+        }
+    }
+    for (var i = 0; i < count; i++) {
+        tid = id_list[i];
+        //修改点击无法收起的BUG，加入【详细】切换文字变化 --Findyou
+        if (toHide) {
+            document.getElementById(tid).className = 'hiddenRow';
+            document.getElementById(cid).innerText = "详细"
+        }
+        else {
+            document.getElementById(tid).className = '';
+            document.getElementById(cid).innerText = "收起"
+        }
+    }
+}
+function html_escape(s) {
+    s = s.replace(/&/g,'&amp;');
+    s = s.replace(/</g,'&lt;');
+    s = s.replace(/>/g,'&gt;');
+    return s;
+}
+</script>
+<div class='heading'>
+<h1 style="font-family: Microsoft YaHei">注册测试用例</h1>
+<p class='attribute'><strong>测试人员 : </strong> wyr</p>
+<p class='attribute'><strong>开始时间 : </strong> 2020-08-30 16:25:13</p>
+<p class='attribute'><strong>合计耗时 : </strong> 0:00:09.278531</p>
+<p class='attribute'><strong>测试结果 : </strong> 共 77，失败 33，错误 44，通过率= 0.00%</p>
+
+<p class='description'></p>
+</div>
+
+
+<p id='show_detail_line'>
+<a class="btn btn-primary" href='javascript:showCase(0)'>概要{ 0.00% }</a>
+<a class="btn btn-danger" href='javascript:showCase(1)'>失败{ 33 }</a>
+<a class="btn btn-success" href='javascript:showCase(2)'>通过{ 0 }</a>
+<a class="btn btn-info" href='javascript:showCase(3)'>所有{ 77 }</a>
+</p>
+<table id='result_table' class="table table-condensed table-bordered table-hover">
+<colgroup>
+<col align='left' />
+<col align='right' />
+<col align='right' />
+<col align='right' />
+<col align='right' />
+<col align='right' />
+</colgroup>
+<tr id='header_row' class="text-center success" style="font-weight: bold;font-size: 16px;">
+    <td>用例集/测试用例</td>
+    <td>总计</td>
+    <td>通过</td>
+    <td>失败</td>
+    <td>错误</td>
+    <td>详细</td>
+</tr>
+
+<tr class='failClass warning'>
+    <td>test_02_login.TestRegister</td>
+    <td class="text-center">5</td>
+    <td class="text-center">0</td>
+    <td class="text-center">5</td>
+    <td class="text-center">0</td>
+    <td class="text-center"><a href="javascript:showClassDetail('c1',5)" class="detail" id='c1'>详细</a></td>
+</tr>
+
+<tr id='ft1_1' class='none'>
+    <td class='failCase'><div class='testcase'>test_register_1_正常登录</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_ft1_1' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_ft1_1'>失败</button>
+    <div id='div_ft1_1' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_ft1_1' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_ft1_1'>失败</button>
+    <div id='div_ft1_1' class="collapse in" align="left">
+    <pre>
+    
+ft1_1: Traceback (most recent call last):
+  File "F:\qianchengdai-interface-v3\lib\ddt_20190803_174022.py", line 165, in wrapper
+    return func(self, *args, **kwargs)
+  File "F:\qianchengdai-interface-v3\cases\test_02_login.py", line 61, in test_register
+    raise e
+  File "F:\qianchengdai-interface-v3\cases\test_02_login.py", line 54, in test_register
+    self.assertEqual(val['expected'], actual_result.text)
+AssertionError: '{"status":1,"code":"10001","data":null,"msg":"登录成功"}' != '{"code":1006,"copyright":"Copyright 柠檬班 © 2[76 chars]存在"}'
+- {"status":1,"code":"10001","data":null,"msg":"登录成功"}
++ {"code":1006,"copyright":"Copyright 柠檬班 © 2017-2020 湖南省零檬信息技术有限公司 All Rights Reserved","msg":"请求头X-Lemonban-Media-Type不存在"}
+
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='ft1_2' class='none'>
+    <td class='failCase'><div class='testcase'>test_register_2_手机号为空</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_ft1_2' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_ft1_2'>失败</button>
+    <div id='div_ft1_2' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_ft1_2' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_ft1_2'>失败</button>
+    <div id='div_ft1_2' class="collapse in" align="left">
+    <pre>
+    
+ft1_2: Traceback (most recent call last):
+  File "F:\qianchengdai-interface-v3\lib\ddt_20190803_174022.py", line 165, in wrapper
+    return func(self, *args, **kwargs)
+  File "F:\qianchengdai-interface-v3\cases\test_02_login.py", line 61, in test_register
+    raise e
+  File "F:\qianchengdai-interface-v3\cases\test_02_login.py", line 54, in test_register
+    self.assertEqual(val['expected'], actual_result.text)
+AssertionError: '{"status":0,"code":"20103","data":null,"msg":"手机号不能为空"}' != '{"code":1006,"copyright":"Copyright 柠檬班 © 2[76 chars]存在"}'
+- {"status":0,"code":"20103","data":null,"msg":"手机号不能为空"}
++ {"code":1006,"copyright":"Copyright 柠檬班 © 2017-2020 湖南省零檬信息技术有限公司 All Rights Reserved","msg":"请求头X-Lemonban-Media-Type不存在"}
+
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='ft1_3' class='none'>
+    <td class='failCase'><div class='testcase'>test_register_3_密码为空</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_ft1_3' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_ft1_3'>失败</button>
+    <div id='div_ft1_3' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_ft1_3' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_ft1_3'>失败</button>
+    <div id='div_ft1_3' class="collapse in" align="left">
+    <pre>
+    
+ft1_3: Traceback (most recent call last):
+  File "F:\qianchengdai-interface-v3\lib\ddt_20190803_174022.py", line 165, in wrapper
+    return func(self, *args, **kwargs)
+  File "F:\qianchengdai-interface-v3\cases\test_02_login.py", line 61, in test_register
+    raise e
+  File "F:\qianchengdai-interface-v3\cases\test_02_login.py", line 54, in test_register
+    self.assertEqual(val['expected'], actual_result.text)
+AssertionError: '{"status":0,"code":"20103","data":null,"msg":"密码不能为空"}' != '{"code":1006,"copyright":"Copyright 柠檬班 © 2[76 chars]存在"}'
+- {"status":0,"code":"20103","data":null,"msg":"密码不能为空"}
++ {"code":1006,"copyright":"Copyright 柠檬班 © 2017-2020 湖南省零檬信息技术有限公司 All Rights Reserved","msg":"请求头X-Lemonban-Media-Type不存在"}
+
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='ft1_4' class='none'>
+    <td class='failCase'><div class='testcase'>test_register_4_密码错误</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_ft1_4' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_ft1_4'>失败</button>
+    <div id='div_ft1_4' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_ft1_4' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_ft1_4'>失败</button>
+    <div id='div_ft1_4' class="collapse in" align="left">
+    <pre>
+    
+ft1_4: Traceback (most recent call last):
+  File "F:\qianchengdai-interface-v3\lib\ddt_20190803_174022.py", line 165, in wrapper
+    return func(self, *args, **kwargs)
+  File "F:\qianchengdai-interface-v3\cases\test_02_login.py", line 61, in test_register
+    raise e
+  File "F:\qianchengdai-interface-v3\cases\test_02_login.py", line 54, in test_register
+    self.assertEqual(val['expected'], actual_result.text)
+AssertionError: '{"status":0,"code":"20111","data":null,"msg":"用户名或密码错误"}' != '{"code":1006,"copyright":"Copyright 柠檬班 © 2[76 chars]存在"}'
+- {"status":0,"code":"20111","data":null,"msg":"用户名或密码错误"}
++ {"code":1006,"copyright":"Copyright 柠檬班 © 2017-2020 湖南省零檬信息技术有限公司 All Rights Reserved","msg":"请求头X-Lemonban-Media-Type不存在"}
+
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='ft1_5' class='none'>
+    <td class='failCase'><div class='testcase'>test_register_5_手机号错误</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_ft1_5' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_ft1_5'>失败</button>
+    <div id='div_ft1_5' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_ft1_5' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_ft1_5'>失败</button>
+    <div id='div_ft1_5' class="collapse in" align="left">
+    <pre>
+    
+ft1_5: Traceback (most recent call last):
+  File "F:\qianchengdai-interface-v3\lib\ddt_20190803_174022.py", line 165, in wrapper
+    return func(self, *args, **kwargs)
+  File "F:\qianchengdai-interface-v3\cases\test_02_login.py", line 61, in test_register
+    raise e
+  File "F:\qianchengdai-interface-v3\cases\test_02_login.py", line 54, in test_register
+    self.assertEqual(val['expected'], actual_result.text)
+AssertionError: '{"status":0,"code":"20111","data":null,"msg":"用户名或密码错误"}' != '{"code":1006,"copyright":"Copyright 柠檬班 © 2[76 chars]存在"}'
+- {"status":0,"code":"20111","data":null,"msg":"用户名或密码错误"}
++ {"code":1006,"copyright":"Copyright 柠檬班 © 2017-2020 湖南省零檬信息技术有限公司 All Rights Reserved","msg":"请求头X-Lemonban-Media-Type不存在"}
+
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr class='errorClass warning'>
+    <td>test_03_recharge.TestRecharge</td>
+    <td class="text-center">15</td>
+    <td class="text-center">0</td>
+    <td class="text-center">11</td>
+    <td class="text-center">4</td>
+    <td class="text-center"><a href="javascript:showClassDetail('c2',15)" class="detail" id='c2'>详细</a></td>
+</tr>
+
+<tr id='ft2_1' class='none'>
+    <td class='failCase'><div class='testcase'>test_register_01_正常登录</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_ft2_1' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_ft2_1'>失败</button>
+    <div id='div_ft2_1' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_ft2_1' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_ft2_1'>失败</button>
+    <div id='div_ft2_1' class="collapse in" align="left">
+    <pre>
+    
+ft2_1: Traceback (most recent call last):
+  File "F:\qianchengdai-interface-v3\lib\ddt_20190803_174022.py", line 165, in wrapper
+    return func(self, *args, **kwargs)
+  File "F:\qianchengdai-interface-v3\cases\test_03_recharge.py", line 96, in test_register
+    raise e
+  File "F:\qianchengdai-interface-v3\cases\test_03_recharge.py", line 78, in test_register
+    self.assertEqual(str(val['expected']), code)
+AssertionError: '10001' != 1006
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='ft2_2' class='none'>
+    <td class='errorCase'><div class='testcase'>test_register_02_充值成功_整数</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_ft2_2' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_ft2_2'>错误</button>
+    <div id='div_ft2_2' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_ft2_2' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_ft2_2'>错误</button>
+    <div id='div_ft2_2' class="collapse in" align="left">
+    <pre>
+    
+ft2_2: Traceback (most recent call last):
+  File "F:\qianchengdai-interface-v3\lib\ddt_20190803_174022.py", line 165, in wrapper
+    return func(self, *args, **kwargs)
+  File "F:\qianchengdai-interface-v3\cases\test_03_recharge.py", line 53, in test_register
+    sql = self.do_sql(sql=check_sql)
+  File "F:\qianchengdai-interface-v3\script\handle_sql.py", line 28, in __call__
+    self.cursor.execute(sql,arg) # 执行sql操作
+  File "E:\python\lib\site-packages\pymysql\cursors.py", line 170, in execute
+    result = self._query(query)
+  File "E:\python\lib\site-packages\pymysql\cursors.py", line 328, in _query
+    conn.query(q)
+  File "E:\python\lib\site-packages\pymysql\connections.py", line 517, in query
+    self._affected_rows = self._read_query_result(unbuffered=unbuffered)
+  File "E:\python\lib\site-packages\pymysql\connections.py", line 732, in _read_query_result
+    result.read()
+  File "E:\python\lib\site-packages\pymysql\connections.py", line 1075, in read
+    first_packet = self.connection._read_packet()
+  File "E:\python\lib\site-packages\pymysql\connections.py", line 684, in _read_packet
+    packet.check_error()
+  File "E:\python\lib\site-packages\pymysql\protocol.py", line 220, in check_error
+    err.raise_mysql_exception(self._data)
+  File "E:\python\lib\site-packages\pymysql\err.py", line 109, in raise_mysql_exception
+    raise errorclass(errno, errval)
+pymysql.err.OperationalError: (1142, "SELECT command denied to user 'future'@'113.92.33.115' for table 'member'")
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='ft2_3' class='none'>
+    <td class='errorCase'><div class='testcase'>test_register_03_充值成功_1位小数</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_ft2_3' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_ft2_3'>错误</button>
+    <div id='div_ft2_3' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_ft2_3' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_ft2_3'>错误</button>
+    <div id='div_ft2_3' class="collapse in" align="left">
+    <pre>
+    
+ft2_3: Traceback (most recent call last):
+  File "F:\qianchengdai-interface-v3\lib\ddt_20190803_174022.py", line 165, in wrapper
+    return func(self, *args, **kwargs)
+  File "F:\qianchengdai-interface-v3\cases\test_03_recharge.py", line 53, in test_register
+    sql = self.do_sql(sql=check_sql)
+  File "F:\qianchengdai-interface-v3\script\handle_sql.py", line 28, in __call__
+    self.cursor.execute(sql,arg) # 执行sql操作
+  File "E:\python\lib\site-packages\pymysql\cursors.py", line 170, in execute
+    result = self._query(query)
+  File "E:\python\lib\site-packages\pymysql\cursors.py", line 328, in _query
+    conn.query(q)
+  File "E:\python\lib\site-packages\pymysql\connections.py", line 517, in query
+    self._affected_rows = self._read_query_result(unbuffered=unbuffered)
+  File "E:\python\lib\site-packages\pymysql\connections.py", line 732, in _read_query_result
+    result.read()
+  File "E:\python\lib\site-packages\pymysql\connections.py", line 1075, in read
+    first_packet = self.connection._read_packet()
+  File "E:\python\lib\site-packages\pymysql\connections.py", line 684, in _read_packet
+    packet.check_error()
+  File "E:\python\lib\site-packages\pymysql\protocol.py", line 220, in check_error
+    err.raise_mysql_exception(self._data)
+  File "E:\python\lib\site-packages\pymysql\err.py", line 109, in raise_mysql_exception
+    raise errorclass(errno, errval)
+pymysql.err.OperationalError: (1142, "SELECT command denied to user 'future'@'113.92.33.115' for table 'member'")
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='ft2_4' class='none'>
+    <td class='errorCase'><div class='testcase'>test_register_04_充值成功_2位小数</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_ft2_4' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_ft2_4'>错误</button>
+    <div id='div_ft2_4' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_ft2_4' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_ft2_4'>错误</button>
+    <div id='div_ft2_4' class="collapse in" align="left">
+    <pre>
+    
+ft2_4: Traceback (most recent call last):
+  File "F:\qianchengdai-interface-v3\lib\ddt_20190803_174022.py", line 165, in wrapper
+    return func(self, *args, **kwargs)
+  File "F:\qianchengdai-interface-v3\cases\test_03_recharge.py", line 53, in test_register
+    sql = self.do_sql(sql=check_sql)
+  File "F:\qianchengdai-interface-v3\script\handle_sql.py", line 28, in __call__
+    self.cursor.execute(sql,arg) # 执行sql操作
+  File "E:\python\lib\site-packages\pymysql\cursors.py", line 170, in execute
+    result = self._query(query)
+  File "E:\python\lib\site-packages\pymysql\cursors.py", line 328, in _query
+    conn.query(q)
+  File "E:\python\lib\site-packages\pymysql\connections.py", line 517, in query
+    self._affected_rows = self._read_query_result(unbuffered=unbuffered)
+  File "E:\python\lib\site-packages\pymysql\connections.py", line 732, in _read_query_result
+    result.read()
+  File "E:\python\lib\site-packages\pymysql\connections.py", line 1075, in read
+    first_packet = self.connection._read_packet()
+  File "E:\python\lib\site-packages\pymysql\connections.py", line 684, in _read_packet
+    packet.check_error()
+  File "E:\python\lib\site-packages\pymysql\protocol.py", line 220, in check_error
+    err.raise_mysql_exception(self._data)
+  File "E:\python\lib\site-packages\pymysql\err.py", line 109, in raise_mysql_exception
+    raise errorclass(errno, errval)
+pymysql.err.OperationalError: (1142, "SELECT command denied to user 'future'@'113.92.33.115' for table 'member'")
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='ft2_5' class='none'>
+    <td class='errorCase'><div class='testcase'>test_register_05_充值成功_50万</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_ft2_5' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_ft2_5'>错误</button>
+    <div id='div_ft2_5' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_ft2_5' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_ft2_5'>错误</button>
+    <div id='div_ft2_5' class="collapse in" align="left">
+    <pre>
+    
+ft2_5: Traceback (most recent call last):
+  File "F:\qianchengdai-interface-v3\lib\ddt_20190803_174022.py", line 165, in wrapper
+    return func(self, *args, **kwargs)
+  File "F:\qianchengdai-interface-v3\cases\test_03_recharge.py", line 53, in test_register
+    sql = self.do_sql(sql=check_sql)
+  File "F:\qianchengdai-interface-v3\script\handle_sql.py", line 28, in __call__
+    self.cursor.execute(sql,arg) # 执行sql操作
+  File "E:\python\lib\site-packages\pymysql\cursors.py", line 170, in execute
+    result = self._query(query)
+  File "E:\python\lib\site-packages\pymysql\cursors.py", line 328, in _query
+    conn.query(q)
+  File "E:\python\lib\site-packages\pymysql\connections.py", line 517, in query
+    self._affected_rows = self._read_query_result(unbuffered=unbuffered)
+  File "E:\python\lib\site-packages\pymysql\connections.py", line 732, in _read_query_result
+    result.read()
+  File "E:\python\lib\site-packages\pymysql\connections.py", line 1075, in read
+    first_packet = self.connection._read_packet()
+  File "E:\python\lib\site-packages\pymysql\connections.py", line 684, in _read_packet
+    packet.check_error()
+  File "E:\python\lib\site-packages\pymysql\protocol.py", line 220, in check_error
+    err.raise_mysql_exception(self._data)
+  File "E:\python\lib\site-packages\pymysql\err.py", line 109, in raise_mysql_exception
+    raise errorclass(errno, errval)
+pymysql.err.OperationalError: (1142, "SELECT command denied to user 'future'@'113.92.33.115' for table 'member'")
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='ft2_6' class='none'>
+    <td class='failCase'><div class='testcase'>test_register_06_手机号为空</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_ft2_6' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_ft2_6'>失败</button>
+    <div id='div_ft2_6' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_ft2_6' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_ft2_6'>失败</button>
+    <div id='div_ft2_6' class="collapse in" align="left">
+    <pre>
+    
+ft2_6: Traceback (most recent call last):
+  File "F:\qianchengdai-interface-v3\lib\ddt_20190803_174022.py", line 165, in wrapper
+    return func(self, *args, **kwargs)
+  File "F:\qianchengdai-interface-v3\cases\test_03_recharge.py", line 96, in test_register
+    raise e
+  File "F:\qianchengdai-interface-v3\cases\test_03_recharge.py", line 78, in test_register
+    self.assertEqual(str(val['expected']), code)
+AssertionError: '20103' != 1006
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='ft2_7' class='none'>
+    <td class='failCase'><div class='testcase'>test_register_07_手机号_不足11位</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_ft2_7' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_ft2_7'>失败</button>
+    <div id='div_ft2_7' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_ft2_7' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_ft2_7'>失败</button>
+    <div id='div_ft2_7' class="collapse in" align="left">
+    <pre>
+    
+ft2_7: Traceback (most recent call last):
+  File "F:\qianchengdai-interface-v3\lib\ddt_20190803_174022.py", line 165, in wrapper
+    return func(self, *args, **kwargs)
+  File "F:\qianchengdai-interface-v3\cases\test_03_recharge.py", line 96, in test_register
+    raise e
+  File "F:\qianchengdai-interface-v3\cases\test_03_recharge.py", line 78, in test_register
+    self.assertEqual(str(val['expected']), code)
+AssertionError: '20109' != 1006
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='ft2_8' class='none'>
+    <td class='failCase'><div class='testcase'>test_register_08_手机号_超过11位</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_ft2_8' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_ft2_8'>失败</button>
+    <div id='div_ft2_8' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_ft2_8' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_ft2_8'>失败</button>
+    <div id='div_ft2_8' class="collapse in" align="left">
+    <pre>
+    
+ft2_8: Traceback (most recent call last):
+  File "F:\qianchengdai-interface-v3\lib\ddt_20190803_174022.py", line 165, in wrapper
+    return func(self, *args, **kwargs)
+  File "F:\qianchengdai-interface-v3\cases\test_03_recharge.py", line 96, in test_register
+    raise e
+  File "F:\qianchengdai-interface-v3\cases\test_03_recharge.py", line 78, in test_register
+    self.assertEqual(str(val['expected']), code)
+AssertionError: '20109' != 1006
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='ft2_9' class='none'>
+    <td class='failCase'><div class='testcase'>test_register_09_手机号_不存在</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_ft2_9' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_ft2_9'>失败</button>
+    <div id='div_ft2_9' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_ft2_9' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_ft2_9'>失败</button>
+    <div id='div_ft2_9' class="collapse in" align="left">
+    <pre>
+    
+ft2_9: Traceback (most recent call last):
+  File "F:\qianchengdai-interface-v3\lib\ddt_20190803_174022.py", line 165, in wrapper
+    return func(self, *args, **kwargs)
+  File "F:\qianchengdai-interface-v3\cases\test_03_recharge.py", line 96, in test_register
+    raise e
+  File "F:\qianchengdai-interface-v3\cases\test_03_recharge.py", line 78, in test_register
+    self.assertEqual(str(val['expected']), code)
+AssertionError: '20104' != 1006
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='ft2_10' class='none'>
+    <td class='failCase'><div class='testcase'>test_register_10_充值金额为0</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_ft2_10' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_ft2_10'>失败</button>
+    <div id='div_ft2_10' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_ft2_10' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_ft2_10'>失败</button>
+    <div id='div_ft2_10' class="collapse in" align="left">
+    <pre>
+    
+ft2_10: Traceback (most recent call last):
+  File "F:\qianchengdai-interface-v3\lib\ddt_20190803_174022.py", line 165, in wrapper
+    return func(self, *args, **kwargs)
+  File "F:\qianchengdai-interface-v3\cases\test_03_recharge.py", line 96, in test_register
+    raise e
+  File "F:\qianchengdai-interface-v3\cases\test_03_recharge.py", line 78, in test_register
+    self.assertEqual(str(val['expected']), code)
+AssertionError: '20117' != 1006
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='ft2_11' class='none'>
+    <td class='failCase'><div class='testcase'>test_register_11_充值金额为负数</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_ft2_11' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_ft2_11'>失败</button>
+    <div id='div_ft2_11' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_ft2_11' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_ft2_11'>失败</button>
+    <div id='div_ft2_11' class="collapse in" align="left">
+    <pre>
+    
+ft2_11: Traceback (most recent call last):
+  File "F:\qianchengdai-interface-v3\lib\ddt_20190803_174022.py", line 165, in wrapper
+    return func(self, *args, **kwargs)
+  File "F:\qianchengdai-interface-v3\cases\test_03_recharge.py", line 96, in test_register
+    raise e
+  File "F:\qianchengdai-interface-v3\cases\test_03_recharge.py", line 78, in test_register
+    self.assertEqual(str(val['expected']), code)
+AssertionError: '20117' != 1006
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='ft2_12' class='none'>
+    <td class='failCase'><div class='testcase'>test_register_12_充值金额为空</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_ft2_12' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_ft2_12'>失败</button>
+    <div id='div_ft2_12' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_ft2_12' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_ft2_12'>失败</button>
+    <div id='div_ft2_12' class="collapse in" align="left">
+    <pre>
+    
+ft2_12: Traceback (most recent call last):
+  File "F:\qianchengdai-interface-v3\lib\ddt_20190803_174022.py", line 165, in wrapper
+    return func(self, *args, **kwargs)
+  File "F:\qianchengdai-interface-v3\cases\test_03_recharge.py", line 96, in test_register
+    raise e
+  File "F:\qianchengdai-interface-v3\cases\test_03_recharge.py", line 78, in test_register
+    self.assertEqual(str(val['expected']), code)
+AssertionError: '20115' != 1006
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='ft2_13' class='none'>
+    <td class='failCase'><div class='testcase'>test_register_13_充值金额_3位小数</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_ft2_13' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_ft2_13'>失败</button>
+    <div id='div_ft2_13' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_ft2_13' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_ft2_13'>失败</button>
+    <div id='div_ft2_13' class="collapse in" align="left">
+    <pre>
+    
+ft2_13: Traceback (most recent call last):
+  File "F:\qianchengdai-interface-v3\lib\ddt_20190803_174022.py", line 165, in wrapper
+    return func(self, *args, **kwargs)
+  File "F:\qianchengdai-interface-v3\cases\test_03_recharge.py", line 96, in test_register
+    raise e
+  File "F:\qianchengdai-interface-v3\cases\test_03_recharge.py", line 78, in test_register
+    self.assertEqual(str(val['expected']), code)
+AssertionError: '20116' != 1006
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='ft2_14' class='none'>
+    <td class='failCase'><div class='testcase'>test_register_14_充值金额_大于50万</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_ft2_14' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_ft2_14'>失败</button>
+    <div id='div_ft2_14' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_ft2_14' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_ft2_14'>失败</button>
+    <div id='div_ft2_14' class="collapse in" align="left">
+    <pre>
+    
+ft2_14: Traceback (most recent call last):
+  File "F:\qianchengdai-interface-v3\lib\ddt_20190803_174022.py", line 165, in wrapper
+    return func(self, *args, **kwargs)
+  File "F:\qianchengdai-interface-v3\cases\test_03_recharge.py", line 96, in test_register
+    raise e
+  File "F:\qianchengdai-interface-v3\cases\test_03_recharge.py", line 78, in test_register
+    self.assertEqual(str(val['expected']), code)
+AssertionError: '20117' != 1006
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='ft2_15' class='none'>
+    <td class='failCase'><div class='testcase'>test_register_15_充值金额_非数字</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_ft2_15' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_ft2_15'>失败</button>
+    <div id='div_ft2_15' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_ft2_15' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_ft2_15'>失败</button>
+    <div id='div_ft2_15' class="collapse in" align="left">
+    <pre>
+    
+ft2_15: Traceback (most recent call last):
+  File "F:\qianchengdai-interface-v3\lib\ddt_20190803_174022.py", line 165, in wrapper
+    return func(self, *args, **kwargs)
+  File "F:\qianchengdai-interface-v3\cases\test_03_recharge.py", line 96, in test_register
+    raise e
+  File "F:\qianchengdai-interface-v3\cases\test_03_recharge.py", line 78, in test_register
+    self.assertEqual(str(val['expected']), code)
+AssertionError: '20118' != 1006
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr class='errorClass warning'>
+    <td>test_03_recharge2.TestRecharge01</td>
+    <td class="text-center">15</td>
+    <td class="text-center">0</td>
+    <td class="text-center">11</td>
+    <td class="text-center">4</td>
+    <td class="text-center"><a href="javascript:showClassDetail('c3',15)" class="detail" id='c3'>详细</a></td>
+</tr>
+
+<tr id='ft3_1' class='none'>
+    <td class='failCase'><div class='testcase'>test_recharge_01_正常登录</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_ft3_1' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_ft3_1'>失败</button>
+    <div id='div_ft3_1' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_ft3_1' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_ft3_1'>失败</button>
+    <div id='div_ft3_1' class="collapse in" align="left">
+    <pre>
+    
+ft3_1: &lt;class 'str'&gt;
+{"code":1006,"copyright":"Copyright 柠檬班 © 2017-2020 湖南省零檬信息技术有限公司 All Rights Reserved","msg":"请求头X-Lemonban-Media-Type不存在"}
+Traceback (most recent call last):
+  File "F:\qianchengdai-interface-v3\lib\ddt_20190803_174022.py", line 165, in wrapper
+    return func(self, *args, **kwargs)
+  File "F:\qianchengdai-interface-v3\cases\test_03_recharge2.py", line 89, in test_recharge
+    raise e
+  File "F:\qianchengdai-interface-v3\cases\test_03_recharge2.py", line 70, in test_recharge
+    self.assertEqual(str(val['expected']), code)
+AssertionError: '10001' != 1006
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='ft3_2' class='none'>
+    <td class='errorCase'><div class='testcase'>test_recharge_02_充值成功_整数</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_ft3_2' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_ft3_2'>错误</button>
+    <div id='div_ft3_2' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_ft3_2' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_ft3_2'>错误</button>
+    <div id='div_ft3_2' class="collapse in" align="left">
+    <pre>
+    
+ft3_2: Traceback (most recent call last):
+  File "F:\qianchengdai-interface-v3\lib\ddt_20190803_174022.py", line 165, in wrapper
+    return func(self, *args, **kwargs)
+  File "F:\qianchengdai-interface-v3\cases\test_03_recharge2.py", line 50, in test_recharge
+    sql_text = self.do_sql(sql=sql)
+  File "F:\qianchengdai-interface-v3\script\handle_sql.py", line 28, in __call__
+    self.cursor.execute(sql,arg) # 执行sql操作
+  File "E:\python\lib\site-packages\pymysql\cursors.py", line 170, in execute
+    result = self._query(query)
+  File "E:\python\lib\site-packages\pymysql\cursors.py", line 328, in _query
+    conn.query(q)
+  File "E:\python\lib\site-packages\pymysql\connections.py", line 517, in query
+    self._affected_rows = self._read_query_result(unbuffered=unbuffered)
+  File "E:\python\lib\site-packages\pymysql\connections.py", line 732, in _read_query_result
+    result.read()
+  File "E:\python\lib\site-packages\pymysql\connections.py", line 1075, in read
+    first_packet = self.connection._read_packet()
+  File "E:\python\lib\site-packages\pymysql\connections.py", line 684, in _read_packet
+    packet.check_error()
+  File "E:\python\lib\site-packages\pymysql\protocol.py", line 220, in check_error
+    err.raise_mysql_exception(self._data)
+  File "E:\python\lib\site-packages\pymysql\err.py", line 109, in raise_mysql_exception
+    raise errorclass(errno, errval)
+pymysql.err.OperationalError: (1142, "SELECT command denied to user 'future'@'113.92.33.115' for table 'member'")
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='ft3_3' class='none'>
+    <td class='errorCase'><div class='testcase'>test_recharge_03_充值成功_1位小数</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_ft3_3' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_ft3_3'>错误</button>
+    <div id='div_ft3_3' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_ft3_3' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_ft3_3'>错误</button>
+    <div id='div_ft3_3' class="collapse in" align="left">
+    <pre>
+    
+ft3_3: Traceback (most recent call last):
+  File "F:\qianchengdai-interface-v3\lib\ddt_20190803_174022.py", line 165, in wrapper
+    return func(self, *args, **kwargs)
+  File "F:\qianchengdai-interface-v3\cases\test_03_recharge2.py", line 50, in test_recharge
+    sql_text = self.do_sql(sql=sql)
+  File "F:\qianchengdai-interface-v3\script\handle_sql.py", line 28, in __call__
+    self.cursor.execute(sql,arg) # 执行sql操作
+  File "E:\python\lib\site-packages\pymysql\cursors.py", line 170, in execute
+    result = self._query(query)
+  File "E:\python\lib\site-packages\pymysql\cursors.py", line 328, in _query
+    conn.query(q)
+  File "E:\python\lib\site-packages\pymysql\connections.py", line 517, in query
+    self._affected_rows = self._read_query_result(unbuffered=unbuffered)
+  File "E:\python\lib\site-packages\pymysql\connections.py", line 732, in _read_query_result
+    result.read()
+  File "E:\python\lib\site-packages\pymysql\connections.py", line 1075, in read
+    first_packet = self.connection._read_packet()
+  File "E:\python\lib\site-packages\pymysql\connections.py", line 684, in _read_packet
+    packet.check_error()
+  File "E:\python\lib\site-packages\pymysql\protocol.py", line 220, in check_error
+    err.raise_mysql_exception(self._data)
+  File "E:\python\lib\site-packages\pymysql\err.py", line 109, in raise_mysql_exception
+    raise errorclass(errno, errval)
+pymysql.err.OperationalError: (1142, "SELECT command denied to user 'future'@'113.92.33.115' for table 'member'")
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='ft3_4' class='none'>
+    <td class='errorCase'><div class='testcase'>test_recharge_04_充值成功_2位小数</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_ft3_4' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_ft3_4'>错误</button>
+    <div id='div_ft3_4' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_ft3_4' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_ft3_4'>错误</button>
+    <div id='div_ft3_4' class="collapse in" align="left">
+    <pre>
+    
+ft3_4: Traceback (most recent call last):
+  File "F:\qianchengdai-interface-v3\lib\ddt_20190803_174022.py", line 165, in wrapper
+    return func(self, *args, **kwargs)
+  File "F:\qianchengdai-interface-v3\cases\test_03_recharge2.py", line 50, in test_recharge
+    sql_text = self.do_sql(sql=sql)
+  File "F:\qianchengdai-interface-v3\script\handle_sql.py", line 28, in __call__
+    self.cursor.execute(sql,arg) # 执行sql操作
+  File "E:\python\lib\site-packages\pymysql\cursors.py", line 170, in execute
+    result = self._query(query)
+  File "E:\python\lib\site-packages\pymysql\cursors.py", line 328, in _query
+    conn.query(q)
+  File "E:\python\lib\site-packages\pymysql\connections.py", line 517, in query
+    self._affected_rows = self._read_query_result(unbuffered=unbuffered)
+  File "E:\python\lib\site-packages\pymysql\connections.py", line 732, in _read_query_result
+    result.read()
+  File "E:\python\lib\site-packages\pymysql\connections.py", line 1075, in read
+    first_packet = self.connection._read_packet()
+  File "E:\python\lib\site-packages\pymysql\connections.py", line 684, in _read_packet
+    packet.check_error()
+  File "E:\python\lib\site-packages\pymysql\protocol.py", line 220, in check_error
+    err.raise_mysql_exception(self._data)
+  File "E:\python\lib\site-packages\pymysql\err.py", line 109, in raise_mysql_exception
+    raise errorclass(errno, errval)
+pymysql.err.OperationalError: (1142, "SELECT command denied to user 'future'@'113.92.33.115' for table 'member'")
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='ft3_5' class='none'>
+    <td class='errorCase'><div class='testcase'>test_recharge_05_充值成功_50万</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_ft3_5' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_ft3_5'>错误</button>
+    <div id='div_ft3_5' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_ft3_5' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_ft3_5'>错误</button>
+    <div id='div_ft3_5' class="collapse in" align="left">
+    <pre>
+    
+ft3_5: Traceback (most recent call last):
+  File "F:\qianchengdai-interface-v3\lib\ddt_20190803_174022.py", line 165, in wrapper
+    return func(self, *args, **kwargs)
+  File "F:\qianchengdai-interface-v3\cases\test_03_recharge2.py", line 50, in test_recharge
+    sql_text = self.do_sql(sql=sql)
+  File "F:\qianchengdai-interface-v3\script\handle_sql.py", line 28, in __call__
+    self.cursor.execute(sql,arg) # 执行sql操作
+  File "E:\python\lib\site-packages\pymysql\cursors.py", line 170, in execute
+    result = self._query(query)
+  File "E:\python\lib\site-packages\pymysql\cursors.py", line 328, in _query
+    conn.query(q)
+  File "E:\python\lib\site-packages\pymysql\connections.py", line 517, in query
+    self._affected_rows = self._read_query_result(unbuffered=unbuffered)
+  File "E:\python\lib\site-packages\pymysql\connections.py", line 732, in _read_query_result
+    result.read()
+  File "E:\python\lib\site-packages\pymysql\connections.py", line 1075, in read
+    first_packet = self.connection._read_packet()
+  File "E:\python\lib\site-packages\pymysql\connections.py", line 684, in _read_packet
+    packet.check_error()
+  File "E:\python\lib\site-packages\pymysql\protocol.py", line 220, in check_error
+    err.raise_mysql_exception(self._data)
+  File "E:\python\lib\site-packages\pymysql\err.py", line 109, in raise_mysql_exception
+    raise errorclass(errno, errval)
+pymysql.err.OperationalError: (1142, "SELECT command denied to user 'future'@'113.92.33.115' for table 'member'")
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='ft3_6' class='none'>
+    <td class='failCase'><div class='testcase'>test_recharge_06_手机号为空</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_ft3_6' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_ft3_6'>失败</button>
+    <div id='div_ft3_6' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_ft3_6' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_ft3_6'>失败</button>
+    <div id='div_ft3_6' class="collapse in" align="left">
+    <pre>
+    
+ft3_6: &lt;class 'str'&gt;
+{"code":1006,"copyright":"Copyright 柠檬班 © 2017-2020 湖南省零檬信息技术有限公司 All Rights Reserved","msg":"请求头X-Lemonban-Media-Type不存在"}
+Traceback (most recent call last):
+  File "F:\qianchengdai-interface-v3\lib\ddt_20190803_174022.py", line 165, in wrapper
+    return func(self, *args, **kwargs)
+  File "F:\qianchengdai-interface-v3\cases\test_03_recharge2.py", line 89, in test_recharge
+    raise e
+  File "F:\qianchengdai-interface-v3\cases\test_03_recharge2.py", line 70, in test_recharge
+    self.assertEqual(str(val['expected']), code)
+AssertionError: '20103' != 1006
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='ft3_7' class='none'>
+    <td class='failCase'><div class='testcase'>test_recharge_07_手机号_不足11位</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_ft3_7' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_ft3_7'>失败</button>
+    <div id='div_ft3_7' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_ft3_7' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_ft3_7'>失败</button>
+    <div id='div_ft3_7' class="collapse in" align="left">
+    <pre>
+    
+ft3_7: &lt;class 'str'&gt;
+{"code":1006,"copyright":"Copyright 柠檬班 © 2017-2020 湖南省零檬信息技术有限公司 All Rights Reserved","msg":"请求头X-Lemonban-Media-Type不存在"}
+Traceback (most recent call last):
+  File "F:\qianchengdai-interface-v3\lib\ddt_20190803_174022.py", line 165, in wrapper
+    return func(self, *args, **kwargs)
+  File "F:\qianchengdai-interface-v3\cases\test_03_recharge2.py", line 89, in test_recharge
+    raise e
+  File "F:\qianchengdai-interface-v3\cases\test_03_recharge2.py", line 70, in test_recharge
+    self.assertEqual(str(val['expected']), code)
+AssertionError: '20109' != 1006
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='ft3_8' class='none'>
+    <td class='failCase'><div class='testcase'>test_recharge_08_手机号_超过11位</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_ft3_8' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_ft3_8'>失败</button>
+    <div id='div_ft3_8' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_ft3_8' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_ft3_8'>失败</button>
+    <div id='div_ft3_8' class="collapse in" align="left">
+    <pre>
+    
+ft3_8: &lt;class 'str'&gt;
+{"code":1006,"copyright":"Copyright 柠檬班 © 2017-2020 湖南省零檬信息技术有限公司 All Rights Reserved","msg":"请求头X-Lemonban-Media-Type不存在"}
+Traceback (most recent call last):
+  File "F:\qianchengdai-interface-v3\lib\ddt_20190803_174022.py", line 165, in wrapper
+    return func(self, *args, **kwargs)
+  File "F:\qianchengdai-interface-v3\cases\test_03_recharge2.py", line 89, in test_recharge
+    raise e
+  File "F:\qianchengdai-interface-v3\cases\test_03_recharge2.py", line 70, in test_recharge
+    self.assertEqual(str(val['expected']), code)
+AssertionError: '20109' != 1006
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='ft3_9' class='none'>
+    <td class='failCase'><div class='testcase'>test_recharge_09_手机号_不存在</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_ft3_9' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_ft3_9'>失败</button>
+    <div id='div_ft3_9' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_ft3_9' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_ft3_9'>失败</button>
+    <div id='div_ft3_9' class="collapse in" align="left">
+    <pre>
+    
+ft3_9: &lt;class 'str'&gt;
+{"code":1006,"copyright":"Copyright 柠檬班 © 2017-2020 湖南省零檬信息技术有限公司 All Rights Reserved","msg":"请求头X-Lemonban-Media-Type不存在"}
+Traceback (most recent call last):
+  File "F:\qianchengdai-interface-v3\lib\ddt_20190803_174022.py", line 165, in wrapper
+    return func(self, *args, **kwargs)
+  File "F:\qianchengdai-interface-v3\cases\test_03_recharge2.py", line 89, in test_recharge
+    raise e
+  File "F:\qianchengdai-interface-v3\cases\test_03_recharge2.py", line 70, in test_recharge
+    self.assertEqual(str(val['expected']), code)
+AssertionError: '20104' != 1006
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='ft3_10' class='none'>
+    <td class='failCase'><div class='testcase'>test_recharge_10_充值金额为0</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_ft3_10' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_ft3_10'>失败</button>
+    <div id='div_ft3_10' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_ft3_10' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_ft3_10'>失败</button>
+    <div id='div_ft3_10' class="collapse in" align="left">
+    <pre>
+    
+ft3_10: &lt;class 'str'&gt;
+{"code":1006,"copyright":"Copyright 柠檬班 © 2017-2020 湖南省零檬信息技术有限公司 All Rights Reserved","msg":"请求头X-Lemonban-Media-Type不存在"}
+Traceback (most recent call last):
+  File "F:\qianchengdai-interface-v3\lib\ddt_20190803_174022.py", line 165, in wrapper
+    return func(self, *args, **kwargs)
+  File "F:\qianchengdai-interface-v3\cases\test_03_recharge2.py", line 89, in test_recharge
+    raise e
+  File "F:\qianchengdai-interface-v3\cases\test_03_recharge2.py", line 70, in test_recharge
+    self.assertEqual(str(val['expected']), code)
+AssertionError: '20117' != 1006
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='ft3_11' class='none'>
+    <td class='failCase'><div class='testcase'>test_recharge_11_充值金额为负数</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_ft3_11' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_ft3_11'>失败</button>
+    <div id='div_ft3_11' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_ft3_11' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_ft3_11'>失败</button>
+    <div id='div_ft3_11' class="collapse in" align="left">
+    <pre>
+    
+ft3_11: &lt;class 'str'&gt;
+{"code":1006,"copyright":"Copyright 柠檬班 © 2017-2020 湖南省零檬信息技术有限公司 All Rights Reserved","msg":"请求头X-Lemonban-Media-Type不存在"}
+Traceback (most recent call last):
+  File "F:\qianchengdai-interface-v3\lib\ddt_20190803_174022.py", line 165, in wrapper
+    return func(self, *args, **kwargs)
+  File "F:\qianchengdai-interface-v3\cases\test_03_recharge2.py", line 89, in test_recharge
+    raise e
+  File "F:\qianchengdai-interface-v3\cases\test_03_recharge2.py", line 70, in test_recharge
+    self.assertEqual(str(val['expected']), code)
+AssertionError: '20117' != 1006
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='ft3_12' class='none'>
+    <td class='failCase'><div class='testcase'>test_recharge_12_充值金额为空</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_ft3_12' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_ft3_12'>失败</button>
+    <div id='div_ft3_12' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_ft3_12' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_ft3_12'>失败</button>
+    <div id='div_ft3_12' class="collapse in" align="left">
+    <pre>
+    
+ft3_12: &lt;class 'str'&gt;
+{"code":1006,"copyright":"Copyright 柠檬班 © 2017-2020 湖南省零檬信息技术有限公司 All Rights Reserved","msg":"请求头X-Lemonban-Media-Type不存在"}
+Traceback (most recent call last):
+  File "F:\qianchengdai-interface-v3\lib\ddt_20190803_174022.py", line 165, in wrapper
+    return func(self, *args, **kwargs)
+  File "F:\qianchengdai-interface-v3\cases\test_03_recharge2.py", line 89, in test_recharge
+    raise e
+  File "F:\qianchengdai-interface-v3\cases\test_03_recharge2.py", line 70, in test_recharge
+    self.assertEqual(str(val['expected']), code)
+AssertionError: '20115' != 1006
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='ft3_13' class='none'>
+    <td class='failCase'><div class='testcase'>test_recharge_13_充值金额_3位小数</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_ft3_13' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_ft3_13'>失败</button>
+    <div id='div_ft3_13' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_ft3_13' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_ft3_13'>失败</button>
+    <div id='div_ft3_13' class="collapse in" align="left">
+    <pre>
+    
+ft3_13: &lt;class 'str'&gt;
+{"code":1006,"copyright":"Copyright 柠檬班 © 2017-2020 湖南省零檬信息技术有限公司 All Rights Reserved","msg":"请求头X-Lemonban-Media-Type不存在"}
+Traceback (most recent call last):
+  File "F:\qianchengdai-interface-v3\lib\ddt_20190803_174022.py", line 165, in wrapper
+    return func(self, *args, **kwargs)
+  File "F:\qianchengdai-interface-v3\cases\test_03_recharge2.py", line 89, in test_recharge
+    raise e
+  File "F:\qianchengdai-interface-v3\cases\test_03_recharge2.py", line 70, in test_recharge
+    self.assertEqual(str(val['expected']), code)
+AssertionError: '20116' != 1006
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='ft3_14' class='none'>
+    <td class='failCase'><div class='testcase'>test_recharge_14_充值金额_大于50万</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_ft3_14' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_ft3_14'>失败</button>
+    <div id='div_ft3_14' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_ft3_14' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_ft3_14'>失败</button>
+    <div id='div_ft3_14' class="collapse in" align="left">
+    <pre>
+    
+ft3_14: &lt;class 'str'&gt;
+{"code":1006,"copyright":"Copyright 柠檬班 © 2017-2020 湖南省零檬信息技术有限公司 All Rights Reserved","msg":"请求头X-Lemonban-Media-Type不存在"}
+Traceback (most recent call last):
+  File "F:\qianchengdai-interface-v3\lib\ddt_20190803_174022.py", line 165, in wrapper
+    return func(self, *args, **kwargs)
+  File "F:\qianchengdai-interface-v3\cases\test_03_recharge2.py", line 89, in test_recharge
+    raise e
+  File "F:\qianchengdai-interface-v3\cases\test_03_recharge2.py", line 70, in test_recharge
+    self.assertEqual(str(val['expected']), code)
+AssertionError: '20117' != 1006
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='ft3_15' class='none'>
+    <td class='failCase'><div class='testcase'>test_recharge_15_充值金额_非数字</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_ft3_15' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_ft3_15'>失败</button>
+    <div id='div_ft3_15' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_ft3_15' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_ft3_15'>失败</button>
+    <div id='div_ft3_15' class="collapse in" align="left">
+    <pre>
+    
+ft3_15: &lt;class 'str'&gt;
+{"code":1006,"copyright":"Copyright 柠檬班 © 2017-2020 湖南省零檬信息技术有限公司 All Rights Reserved","msg":"请求头X-Lemonban-Media-Type不存在"}
+Traceback (most recent call last):
+  File "F:\qianchengdai-interface-v3\lib\ddt_20190803_174022.py", line 165, in wrapper
+    return func(self, *args, **kwargs)
+  File "F:\qianchengdai-interface-v3\cases\test_03_recharge2.py", line 89, in test_recharge
+    raise e
+  File "F:\qianchengdai-interface-v3\cases\test_03_recharge2.py", line 70, in test_recharge
+    self.assertEqual(str(val['expected']), code)
+AssertionError: '20118' != 1006
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr class='errorClass warning'>
+    <td>unittest.loader._FailedTest</td>
+    <td class="text-center">5</td>
+    <td class="text-center">0</td>
+    <td class="text-center">0</td>
+    <td class="text-center">5</td>
+    <td class="text-center"><a href="javascript:showClassDetail('c4',5)" class="detail" id='c4'>详细</a></td>
+</tr>
+
+<tr id='ft4_1' class='none'>
+    <td class='errorCase'><div class='testcase'>test_04_add</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_ft4_1' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_ft4_1'>错误</button>
+    <div id='div_ft4_1' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_ft4_1' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_ft4_1'>错误</button>
+    <div id='div_ft4_1' class="collapse in" align="left">
+    <pre>
+    
+ft4_1: ImportError: Failed to import test module: test_04_add
+Traceback (most recent call last):
+  File "E:\python\lib\unittest\loader.py", line 436, in _find_test_path
+    module = self._get_module_from_name(name)
+  File "E:\python\lib\unittest\loader.py", line 377, in _get_module_from_name
+    __import__(name)
+  File "F:\qianchengdai-interface-v3\cases\test_04_add.py", line 4, in &lt;module&gt;
+    from lib.ddt import ddt,data
+ModuleNotFoundError: No module named 'lib.ddt'
+
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='ft4_2' class='none'>
+    <td class='errorCase'><div class='testcase'>test__01_register</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_ft4_2' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_ft4_2'>错误</button>
+    <div id='div_ft4_2' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_ft4_2' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_ft4_2'>错误</button>
+    <div id='div_ft4_2' class="collapse in" align="left">
+    <pre>
+    
+ft4_2: ImportError: Failed to import test module: test__01_register
+Traceback (most recent call last):
+  File "E:\python\lib\unittest\loader.py", line 436, in _find_test_path
+    module = self._get_module_from_name(name)
+  File "E:\python\lib\unittest\loader.py", line 377, in _get_module_from_name
+    __import__(name)
+  File "F:\qianchengdai-interface-v3\cases\test__01_register.py", line 4, in &lt;module&gt;
+    from lib.ddt import ddt,data
+ModuleNotFoundError: No module named 'lib.ddt'
+
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='ft4_3' class='none'>
+    <td class='errorCase'><div class='testcase'>test_courselist</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_ft4_3' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_ft4_3'>错误</button>
+    <div id='div_ft4_3' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_ft4_3' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_ft4_3'>错误</button>
+    <div id='div_ft4_3' class="collapse in" align="left">
+    <pre>
+    
+ft4_3: ImportError: Failed to import test module: test_courselist
+Traceback (most recent call last):
+  File "E:\python\lib\unittest\loader.py", line 436, in _find_test_path
+    module = self._get_module_from_name(name)
+  File "E:\python\lib\unittest\loader.py", line 377, in _get_module_from_name
+    __import__(name)
+  File "F:\qianchengdai-interface-v3\cases\test_courselist.py", line 5, in &lt;module&gt;
+    from script.do_excel import handle_aidong_excel
+ImportError: cannot import name 'handle_aidong_excel' from 'script.do_excel' (F:\qianchengdai-interface-v3\script\do_excel.py)
+
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='ft4_4' class='none'>
+    <td class='errorCase'><div class='testcase'>test_home</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_ft4_4' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_ft4_4'>错误</button>
+    <div id='div_ft4_4' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_ft4_4' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_ft4_4'>错误</button>
+    <div id='div_ft4_4' class="collapse in" align="left">
+    <pre>
+    
+ft4_4: ImportError: Failed to import test module: test_home
+Traceback (most recent call last):
+  File "E:\python\lib\unittest\loader.py", line 436, in _find_test_path
+    module = self._get_module_from_name(name)
+  File "E:\python\lib\unittest\loader.py", line 377, in _get_module_from_name
+    __import__(name)
+  File "F:\qianchengdai-interface-v3\cases\test_home.py", line 6, in &lt;module&gt;
+    from script.do_excel import handle_excel
+ImportError: cannot import name 'handle_excel' from 'script.do_excel' (F:\qianchengdai-interface-v3\script\do_excel.py)
+
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='ft4_5' class='none'>
+    <td class='errorCase'><div class='testcase'>test_login</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_ft4_5' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_ft4_5'>错误</button>
+    <div id='div_ft4_5' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_ft4_5' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_ft4_5'>错误</button>
+    <div id='div_ft4_5' class="collapse in" align="left">
+    <pre>
+    
+ft4_5: ImportError: Failed to import test module: test_login
+Traceback (most recent call last):
+  File "E:\python\lib\unittest\loader.py", line 436, in _find_test_path
+    module = self._get_module_from_name(name)
+  File "E:\python\lib\unittest\loader.py", line 377, in _get_module_from_name
+    __import__(name)
+  File "F:\qianchengdai-interface-v3\cases\test_login.py", line 6, in &lt;module&gt;
+    from script.do_excel import handle_login_excel
+ImportError: cannot import name 'handle_login_excel' from 'script.do_excel' (F:\qianchengdai-interface-v3\script\do_excel.py)
+
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr class='errorClass warning'>
+    <td>test_05_invest.TestInvest</td>
+    <td class="text-center">19</td>
+    <td class="text-center">0</td>
+    <td class="text-center">6</td>
+    <td class="text-center">13</td>
+    <td class="text-center"><a href="javascript:showClassDetail('c5',19)" class="detail" id='c5'>详细</a></td>
+</tr>
+
+<tr id='ft5_1' class='none'>
+    <td class='failCase'><div class='testcase'>test_register_01_管理员正常登录</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_ft5_1' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_ft5_1'>失败</button>
+    <div id='div_ft5_1' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_ft5_1' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_ft5_1'>失败</button>
+    <div id='div_ft5_1' class="collapse in" align="left">
+    <pre>
+    
+ft5_1: Traceback (most recent call last):
+  File "F:\qianchengdai-interface-v3\lib\ddt_20190803_174022.py", line 165, in wrapper
+    return func(self, *args, **kwargs)
+  File "F:\qianchengdai-interface-v3\cases\test_05_invest.py", line 80, in test_register
+    raise e
+  File "F:\qianchengdai-interface-v3\cases\test_05_invest.py", line 73, in test_register
+    self.assertEqual(str(val['expected']),code)
+AssertionError: '10001' != 1006
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='ft5_2' class='none'>
+    <td class='failCase'><div class='testcase'>test_register_02_管理员加标</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_ft5_2' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_ft5_2'>失败</button>
+    <div id='div_ft5_2' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_ft5_2' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_ft5_2'>失败</button>
+    <div id='div_ft5_2' class="collapse in" align="left">
+    <pre>
+    
+ft5_2: Traceback (most recent call last):
+  File "F:\qianchengdai-interface-v3\lib\ddt_20190803_174022.py", line 165, in wrapper
+    return func(self, *args, **kwargs)
+  File "F:\qianchengdai-interface-v3\cases\test_05_invest.py", line 80, in test_register
+    raise e
+  File "F:\qianchengdai-interface-v3\cases\test_05_invest.py", line 73, in test_register
+    self.assertEqual(str(val['expected']),code)
+AssertionError: '10001' != 1006
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='ft5_3' class='none'>
+    <td class='errorCase'><div class='testcase'>test_register_03_管理员审核</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_ft5_3' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_ft5_3'>错误</button>
+    <div id='div_ft5_3' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_ft5_3' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_ft5_3'>错误</button>
+    <div id='div_ft5_3' class="collapse in" align="left">
+    <pre>
+    
+ft5_3: Traceback (most recent call last):
+  File "F:\qianchengdai-interface-v3\lib\ddt_20190803_174022.py", line 165, in wrapper
+    return func(self, *args, **kwargs)
+  File "F:\qianchengdai-interface-v3\cases\test_05_invest.py", line 51, in test_register
+    new_data = HandleContext().invest_param(val['data'])
+  File "F:\qianchengdai-interface-v3\script\handle_context02.py", line 193, in invest_param
+    data = cls.loan_replace(data)
+  File "F:\qianchengdai-interface-v3\script\handle_context02.py", line 164, in loan_replace
+    load_id = str(getattr(cls, "load_id"))
+AttributeError: type object 'HandleContext' has no attribute 'load_id'
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='ft5_4' class='none'>
+    <td class='failCase'><div class='testcase'>test_register_04_投资人正常登录</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_ft5_4' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_ft5_4'>失败</button>
+    <div id='div_ft5_4' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_ft5_4' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_ft5_4'>失败</button>
+    <div id='div_ft5_4' class="collapse in" align="left">
+    <pre>
+    
+ft5_4: Traceback (most recent call last):
+  File "F:\qianchengdai-interface-v3\lib\ddt_20190803_174022.py", line 165, in wrapper
+    return func(self, *args, **kwargs)
+  File "F:\qianchengdai-interface-v3\cases\test_05_invest.py", line 80, in test_register
+    raise e
+  File "F:\qianchengdai-interface-v3\cases\test_05_invest.py", line 73, in test_register
+    self.assertEqual(str(val['expected']),code)
+AssertionError: '10001' != 1006
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='ft5_5' class='none'>
+    <td class='errorCase'><div class='testcase'>test_register_05_投资人正常投资</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_ft5_5' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_ft5_5'>错误</button>
+    <div id='div_ft5_5' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_ft5_5' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_ft5_5'>错误</button>
+    <div id='div_ft5_5' class="collapse in" align="left">
+    <pre>
+    
+ft5_5: Traceback (most recent call last):
+  File "F:\qianchengdai-interface-v3\lib\ddt_20190803_174022.py", line 165, in wrapper
+    return func(self, *args, **kwargs)
+  File "F:\qianchengdai-interface-v3\cases\test_05_invest.py", line 51, in test_register
+    new_data = HandleContext().invest_param(val['data'])
+  File "F:\qianchengdai-interface-v3\script\handle_context02.py", line 193, in invest_param
+    data = cls.loan_replace(data)
+  File "F:\qianchengdai-interface-v3\script\handle_context02.py", line 164, in loan_replace
+    load_id = str(getattr(cls, "load_id"))
+AttributeError: type object 'HandleContext' has no attribute 'load_id'
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='ft5_6' class='none'>
+    <td class='errorCase'><div class='testcase'>test_register_06_投资人id为空</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_ft5_6' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_ft5_6'>错误</button>
+    <div id='div_ft5_6' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_ft5_6' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_ft5_6'>错误</button>
+    <div id='div_ft5_6' class="collapse in" align="left">
+    <pre>
+    
+ft5_6: Traceback (most recent call last):
+  File "F:\qianchengdai-interface-v3\lib\ddt_20190803_174022.py", line 165, in wrapper
+    return func(self, *args, **kwargs)
+  File "F:\qianchengdai-interface-v3\cases\test_05_invest.py", line 51, in test_register
+    new_data = HandleContext().invest_param(val['data'])
+  File "F:\qianchengdai-interface-v3\script\handle_context02.py", line 193, in invest_param
+    data = cls.loan_replace(data)
+  File "F:\qianchengdai-interface-v3\script\handle_context02.py", line 164, in loan_replace
+    load_id = str(getattr(cls, "load_id"))
+AttributeError: type object 'HandleContext' has no attribute 'load_id'
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='ft5_7' class='none'>
+    <td class='errorCase'><div class='testcase'>test_register_07_投资人密码为空</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_ft5_7' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_ft5_7'>错误</button>
+    <div id='div_ft5_7' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_ft5_7' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_ft5_7'>错误</button>
+    <div id='div_ft5_7' class="collapse in" align="left">
+    <pre>
+    
+ft5_7: Traceback (most recent call last):
+  File "F:\qianchengdai-interface-v3\lib\ddt_20190803_174022.py", line 165, in wrapper
+    return func(self, *args, **kwargs)
+  File "F:\qianchengdai-interface-v3\cases\test_05_invest.py", line 51, in test_register
+    new_data = HandleContext().invest_param(val['data'])
+  File "F:\qianchengdai-interface-v3\script\handle_context02.py", line 193, in invest_param
+    data = cls.loan_replace(data)
+  File "F:\qianchengdai-interface-v3\script\handle_context02.py", line 164, in loan_replace
+    load_id = str(getattr(cls, "load_id"))
+AttributeError: type object 'HandleContext' has no attribute 'load_id'
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='ft5_8' class='none'>
+    <td class='failCase'><div class='testcase'>test_register_08_标id为空</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_ft5_8' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_ft5_8'>失败</button>
+    <div id='div_ft5_8' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_ft5_8' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_ft5_8'>失败</button>
+    <div id='div_ft5_8' class="collapse in" align="left">
+    <pre>
+    
+ft5_8: Traceback (most recent call last):
+  File "F:\qianchengdai-interface-v3\lib\ddt_20190803_174022.py", line 165, in wrapper
+    return func(self, *args, **kwargs)
+  File "F:\qianchengdai-interface-v3\cases\test_05_invest.py", line 80, in test_register
+    raise e
+  File "F:\qianchengdai-interface-v3\cases\test_05_invest.py", line 73, in test_register
+    self.assertEqual(str(val['expected']),code)
+AssertionError: '11003' != 1006
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='ft5_9' class='none'>
+    <td class='errorCase'><div class='testcase'>test_register_09_投资金额为空</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_ft5_9' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_ft5_9'>错误</button>
+    <div id='div_ft5_9' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_ft5_9' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_ft5_9'>错误</button>
+    <div id='div_ft5_9' class="collapse in" align="left">
+    <pre>
+    
+ft5_9: Traceback (most recent call last):
+  File "F:\qianchengdai-interface-v3\lib\ddt_20190803_174022.py", line 165, in wrapper
+    return func(self, *args, **kwargs)
+  File "F:\qianchengdai-interface-v3\cases\test_05_invest.py", line 51, in test_register
+    new_data = HandleContext().invest_param(val['data'])
+  File "F:\qianchengdai-interface-v3\script\handle_context02.py", line 193, in invest_param
+    data = cls.loan_replace(data)
+  File "F:\qianchengdai-interface-v3\script\handle_context02.py", line 164, in loan_replace
+    load_id = str(getattr(cls, "load_id"))
+AttributeError: type object 'HandleContext' has no attribute 'load_id'
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='ft5_10' class='none'>
+    <td class='errorCase'><div class='testcase'>test_register_10_投资人id为负数</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_ft5_10' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_ft5_10'>错误</button>
+    <div id='div_ft5_10' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_ft5_10' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_ft5_10'>错误</button>
+    <div id='div_ft5_10' class="collapse in" align="left">
+    <pre>
+    
+ft5_10: Traceback (most recent call last):
+  File "F:\qianchengdai-interface-v3\lib\ddt_20190803_174022.py", line 165, in wrapper
+    return func(self, *args, **kwargs)
+  File "F:\qianchengdai-interface-v3\cases\test_05_invest.py", line 51, in test_register
+    new_data = HandleContext().invest_param(val['data'])
+  File "F:\qianchengdai-interface-v3\script\handle_context02.py", line 193, in invest_param
+    data = cls.loan_replace(data)
+  File "F:\qianchengdai-interface-v3\script\handle_context02.py", line 164, in loan_replace
+    load_id = str(getattr(cls, "load_id"))
+AttributeError: type object 'HandleContext' has no attribute 'load_id'
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='ft5_11' class='none'>
+    <td class='errorCase'><div class='testcase'>test_register_11_投资人id为0</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_ft5_11' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_ft5_11'>错误</button>
+    <div id='div_ft5_11' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_ft5_11' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_ft5_11'>错误</button>
+    <div id='div_ft5_11' class="collapse in" align="left">
+    <pre>
+    
+ft5_11: Traceback (most recent call last):
+  File "F:\qianchengdai-interface-v3\lib\ddt_20190803_174022.py", line 165, in wrapper
+    return func(self, *args, **kwargs)
+  File "F:\qianchengdai-interface-v3\cases\test_05_invest.py", line 51, in test_register
+    new_data = HandleContext().invest_param(val['data'])
+  File "F:\qianchengdai-interface-v3\script\handle_context02.py", line 193, in invest_param
+    data = cls.loan_replace(data)
+  File "F:\qianchengdai-interface-v3\script\handle_context02.py", line 164, in loan_replace
+    load_id = str(getattr(cls, "load_id"))
+AttributeError: type object 'HandleContext' has no attribute 'load_id'
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='ft5_12' class='none'>
+    <td class='errorCase'><div class='testcase'>test_register_12_标id为负数</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_ft5_12' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_ft5_12'>错误</button>
+    <div id='div_ft5_12' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_ft5_12' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_ft5_12'>错误</button>
+    <div id='div_ft5_12' class="collapse in" align="left">
+    <pre>
+    
+ft5_12: Traceback (most recent call last):
+  File "F:\qianchengdai-interface-v3\lib\ddt_20190803_174022.py", line 165, in wrapper
+    return func(self, *args, **kwargs)
+  File "F:\qianchengdai-interface-v3\cases\test_05_invest.py", line 51, in test_register
+    new_data = HandleContext().invest_param(val['data'])
+  File "F:\qianchengdai-interface-v3\script\handle_context02.py", line 193, in invest_param
+    data = cls.loan_replace(data)
+  File "F:\qianchengdai-interface-v3\script\handle_context02.py", line 164, in loan_replace
+    load_id = str(getattr(cls, "load_id"))
+AttributeError: type object 'HandleContext' has no attribute 'load_id'
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='ft5_13' class='none'>
+    <td class='failCase'><div class='testcase'>test_register_13_标id为0</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_ft5_13' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_ft5_13'>失败</button>
+    <div id='div_ft5_13' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_ft5_13' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_ft5_13'>失败</button>
+    <div id='div_ft5_13' class="collapse in" align="left">
+    <pre>
+    
+ft5_13: Traceback (most recent call last):
+  File "F:\qianchengdai-interface-v3\lib\ddt_20190803_174022.py", line 165, in wrapper
+    return func(self, *args, **kwargs)
+  File "F:\qianchengdai-interface-v3\cases\test_05_invest.py", line 80, in test_register
+    raise e
+  File "F:\qianchengdai-interface-v3\cases\test_05_invest.py", line 73, in test_register
+    self.assertEqual(str(val['expected']),code)
+AssertionError: '11005' != 1006
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='ft5_14' class='none'>
+    <td class='errorCase'><div class='testcase'>test_register_14_投资人密码长度小于6</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_ft5_14' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_ft5_14'>错误</button>
+    <div id='div_ft5_14' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_ft5_14' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_ft5_14'>错误</button>
+    <div id='div_ft5_14' class="collapse in" align="left">
+    <pre>
+    
+ft5_14: Traceback (most recent call last):
+  File "F:\qianchengdai-interface-v3\lib\ddt_20190803_174022.py", line 165, in wrapper
+    return func(self, *args, **kwargs)
+  File "F:\qianchengdai-interface-v3\cases\test_05_invest.py", line 51, in test_register
+    new_data = HandleContext().invest_param(val['data'])
+  File "F:\qianchengdai-interface-v3\script\handle_context02.py", line 193, in invest_param
+    data = cls.loan_replace(data)
+  File "F:\qianchengdai-interface-v3\script\handle_context02.py", line 164, in loan_replace
+    load_id = str(getattr(cls, "load_id"))
+AttributeError: type object 'HandleContext' has no attribute 'load_id'
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='ft5_15' class='none'>
+    <td class='errorCase'><div class='testcase'>test_register_15_投资人密码长度大于18</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_ft5_15' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_ft5_15'>错误</button>
+    <div id='div_ft5_15' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_ft5_15' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_ft5_15'>错误</button>
+    <div id='div_ft5_15' class="collapse in" align="left">
+    <pre>
+    
+ft5_15: Traceback (most recent call last):
+  File "F:\qianchengdai-interface-v3\lib\ddt_20190803_174022.py", line 165, in wrapper
+    return func(self, *args, **kwargs)
+  File "F:\qianchengdai-interface-v3\cases\test_05_invest.py", line 51, in test_register
+    new_data = HandleContext().invest_param(val['data'])
+  File "F:\qianchengdai-interface-v3\script\handle_context02.py", line 193, in invest_param
+    data = cls.loan_replace(data)
+  File "F:\qianchengdai-interface-v3\script\handle_context02.py", line 164, in loan_replace
+    load_id = str(getattr(cls, "load_id"))
+AttributeError: type object 'HandleContext' has no attribute 'load_id'
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='ft5_16' class='none'>
+    <td class='errorCase'><div class='testcase'>test_register_16_投资金额为负数</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_ft5_16' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_ft5_16'>错误</button>
+    <div id='div_ft5_16' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_ft5_16' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_ft5_16'>错误</button>
+    <div id='div_ft5_16' class="collapse in" align="left">
+    <pre>
+    
+ft5_16: Traceback (most recent call last):
+  File "F:\qianchengdai-interface-v3\lib\ddt_20190803_174022.py", line 165, in wrapper
+    return func(self, *args, **kwargs)
+  File "F:\qianchengdai-interface-v3\cases\test_05_invest.py", line 51, in test_register
+    new_data = HandleContext().invest_param(val['data'])
+  File "F:\qianchengdai-interface-v3\script\handle_context02.py", line 193, in invest_param
+    data = cls.loan_replace(data)
+  File "F:\qianchengdai-interface-v3\script\handle_context02.py", line 164, in loan_replace
+    load_id = str(getattr(cls, "load_id"))
+AttributeError: type object 'HandleContext' has no attribute 'load_id'
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='ft5_17' class='none'>
+    <td class='errorCase'><div class='testcase'>test_register_17_投资金额为不能被100整除的数</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_ft5_17' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_ft5_17'>错误</button>
+    <div id='div_ft5_17' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_ft5_17' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_ft5_17'>错误</button>
+    <div id='div_ft5_17' class="collapse in" align="left">
+    <pre>
+    
+ft5_17: Traceback (most recent call last):
+  File "F:\qianchengdai-interface-v3\lib\ddt_20190803_174022.py", line 165, in wrapper
+    return func(self, *args, **kwargs)
+  File "F:\qianchengdai-interface-v3\cases\test_05_invest.py", line 51, in test_register
+    new_data = HandleContext().invest_param(val['data'])
+  File "F:\qianchengdai-interface-v3\script\handle_context02.py", line 193, in invest_param
+    data = cls.loan_replace(data)
+  File "F:\qianchengdai-interface-v3\script\handle_context02.py", line 164, in loan_replace
+    load_id = str(getattr(cls, "load_id"))
+AttributeError: type object 'HandleContext' has no attribute 'load_id'
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='ft5_18' class='none'>
+    <td class='errorCase'><div class='testcase'>test_register_18_投资人id不存在</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_ft5_18' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_ft5_18'>错误</button>
+    <div id='div_ft5_18' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_ft5_18' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_ft5_18'>错误</button>
+    <div id='div_ft5_18' class="collapse in" align="left">
+    <pre>
+    
+ft5_18: Traceback (most recent call last):
+  File "F:\qianchengdai-interface-v3\lib\ddt_20190803_174022.py", line 165, in wrapper
+    return func(self, *args, **kwargs)
+  File "F:\qianchengdai-interface-v3\cases\test_05_invest.py", line 51, in test_register
+    new_data = HandleContext().invest_param(val['data'])
+  File "F:\qianchengdai-interface-v3\script\handle_context02.py", line 193, in invest_param
+    data = cls.loan_replace(data)
+  File "F:\qianchengdai-interface-v3\script\handle_context02.py", line 164, in loan_replace
+    load_id = str(getattr(cls, "load_id"))
+AttributeError: type object 'HandleContext' has no attribute 'load_id'
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='ft5_19' class='none'>
+    <td class='failCase'><div class='testcase'>test_register_19_标id不存在</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_ft5_19' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_ft5_19'>失败</button>
+    <div id='div_ft5_19' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_ft5_19' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_ft5_19'>失败</button>
+    <div id='div_ft5_19' class="collapse in" align="left">
+    <pre>
+    
+ft5_19: Traceback (most recent call last):
+  File "F:\qianchengdai-interface-v3\lib\ddt_20190803_174022.py", line 165, in wrapper
+    return func(self, *args, **kwargs)
+  File "F:\qianchengdai-interface-v3\cases\test_05_invest.py", line 80, in test_register
+    raise e
+  File "F:\qianchengdai-interface-v3\cases\test_05_invest.py", line 73, in test_register
+    self.assertEqual(str(val['expected']),code)
+AssertionError: '11009' != 1006
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr class='errorClass warning'>
+    <td>test_addcat.TestAddcat</td>
+    <td class="text-center">3</td>
+    <td class="text-center">0</td>
+    <td class="text-center">0</td>
+    <td class="text-center">3</td>
+    <td class="text-center"><a href="javascript:showClassDetail('c6',3)" class="detail" id='c6'>详细</a></td>
+</tr>
+
+<tr id='ft6_1' class='none'>
+    <td class='errorCase'><div class='testcase'>test_addcat_1_商品列表</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_ft6_1' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_ft6_1'>错误</button>
+    <div id='div_ft6_1' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_ft6_1' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_ft6_1'>错误</button>
+    <div id='div_ft6_1' class="collapse in" align="left">
+    <pre>
+    
+ft6_1: Traceback (most recent call last):
+  File "F:\qianchengdai-interface-v3\lib\ddt_20190803_174022.py", line 165, in wrapper
+    return func(self, *args, **kwargs)
+  File "F:\qianchengdai-interface-v3\cases\test_addcat.py", line 37, in test_addcat
+    actual_result = token_request(method=method, url=new_url,data=new_data)
+  File "F:\qianchengdai-interface-v3\script\add_token_requests.py", line 26, in __call__
+    request1.write_config(login_url=login_url,login_data=login_datas)  # 将登录接口获取到的token值写入到token_data.ini文件中
+AttributeError: 'Requests' object has no attribute 'write_config'
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='ft6_2' class='none'>
+    <td class='errorCase'><div class='testcase'>test_addcat_2_商品详情</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_ft6_2' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_ft6_2'>错误</button>
+    <div id='div_ft6_2' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_ft6_2' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_ft6_2'>错误</button>
+    <div id='div_ft6_2' class="collapse in" align="left">
+    <pre>
+    
+ft6_2: Traceback (most recent call last):
+  File "F:\qianchengdai-interface-v3\lib\ddt_20190803_174022.py", line 165, in wrapper
+    return func(self, *args, **kwargs)
+  File "F:\qianchengdai-interface-v3\cases\test_addcat.py", line 35, in test_addcat
+    new_url = HandleContext().addcat(response_url)
+  File "F:\qianchengdai-interface-v3\script\handle_aidong_context.py", line 45, in addcat
+    data = cls.id_replace(data)
+  File "F:\qianchengdai-interface-v3\script\handle_aidong_context.py", line 16, in id_replace
+    id = str(getattr(cls, "id"))
+AttributeError: type object 'HandleContext' has no attribute 'id'
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='ft6_3' class='none'>
+    <td class='errorCase'><div class='testcase'>test_addcat_3_加入购物车</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_ft6_3' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_ft6_3'>错误</button>
+    <div id='div_ft6_3' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_ft6_3' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_ft6_3'>错误</button>
+    <div id='div_ft6_3' class="collapse in" align="left">
+    <pre>
+    
+ft6_3: Traceback (most recent call last):
+  File "F:\qianchengdai-interface-v3\lib\ddt_20190803_174022.py", line 165, in wrapper
+    return func(self, *args, **kwargs)
+  File "F:\qianchengdai-interface-v3\cases\test_addcat.py", line 36, in test_addcat
+    new_data = HandleContext().addcat(datas)
+  File "F:\qianchengdai-interface-v3\script\handle_aidong_context.py", line 46, in addcat
+    data = cls.good_code_replace(data)
+  File "F:\qianchengdai-interface-v3\script\handle_aidong_context.py", line 28, in good_code_replace
+    code_id = getattr(cls, "code_id")
+AttributeError: type object 'HandleContext' has no attribute 'code_id'
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr class='errorClass warning'>
+    <td>test_buy.TestBuy</td>
+    <td class="text-center">8</td>
+    <td class="text-center">0</td>
+    <td class="text-center">0</td>
+    <td class="text-center">8</td>
+    <td class="text-center"><a href="javascript:showClassDetail('c7',8)" class="detail" id='c7'>详细</a></td>
+</tr>
+
+<tr id='ft7_1' class='none'>
+    <td class='errorCase'><div class='testcase'>test_buy_1_商品列表</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_ft7_1' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_ft7_1'>错误</button>
+    <div id='div_ft7_1' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_ft7_1' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_ft7_1'>错误</button>
+    <div id='div_ft7_1' class="collapse in" align="left">
+    <pre>
+    
+ft7_1: Traceback (most recent call last):
+  File "F:\qianchengdai-interface-v3\lib\ddt_20190803_174022.py", line 165, in wrapper
+    return func(self, *args, **kwargs)
+  File "F:\qianchengdai-interface-v3\cases\test_buy.py", line 37, in test_buy
+    actual_result = token_request(method=method, url=new_url,data=datas)
+  File "F:\qianchengdai-interface-v3\script\add_token_requests.py", line 26, in __call__
+    request1.write_config(login_url=login_url,login_data=login_datas)  # 将登录接口获取到的token值写入到token_data.ini文件中
+AttributeError: 'Requests' object has no attribute 'write_config'
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='ft7_2' class='none'>
+    <td class='errorCase'><div class='testcase'>test_buy_2_商品详情</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_ft7_2' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_ft7_2'>错误</button>
+    <div id='div_ft7_2' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_ft7_2' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_ft7_2'>错误</button>
+    <div id='div_ft7_2' class="collapse in" align="left">
+    <pre>
+    
+ft7_2: Traceback (most recent call last):
+  File "F:\qianchengdai-interface-v3\lib\ddt_20190803_174022.py", line 165, in wrapper
+    return func(self, *args, **kwargs)
+  File "F:\qianchengdai-interface-v3\cases\test_buy.py", line 35, in test_buy
+    new_url = HandleContext().addcat(response_url)
+  File "F:\qianchengdai-interface-v3\script\handle_aidong_context.py", line 45, in addcat
+    data = cls.id_replace(data)
+  File "F:\qianchengdai-interface-v3\script\handle_aidong_context.py", line 16, in id_replace
+    id = str(getattr(cls, "id"))
+AttributeError: type object 'HandleContext' has no attribute 'id'
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='ft7_3' class='none'>
+    <td class='errorCase'><div class='testcase'>test_buy_3_购买商品</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_ft7_3' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_ft7_3'>错误</button>
+    <div id='div_ft7_3' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_ft7_3' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_ft7_3'>错误</button>
+    <div id='div_ft7_3' class="collapse in" align="left">
+    <pre>
+    
+ft7_3: Traceback (most recent call last):
+  File "F:\qianchengdai-interface-v3\lib\ddt_20190803_174022.py", line 165, in wrapper
+    return func(self, *args, **kwargs)
+  File "F:\qianchengdai-interface-v3\cases\test_buy.py", line 37, in test_buy
+    actual_result = token_request(method=method, url=new_url,data=datas)
+  File "F:\qianchengdai-interface-v3\script\add_token_requests.py", line 26, in __call__
+    request1.write_config(login_url=login_url,login_data=login_datas)  # 将登录接口获取到的token值写入到token_data.ini文件中
+AttributeError: 'Requests' object has no attribute 'write_config'
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='ft7_4' class='none'>
+    <td class='errorCase'><div class='testcase'>test_buy_4_None</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_ft7_4' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_ft7_4'>错误</button>
+    <div id='div_ft7_4' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_ft7_4' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_ft7_4'>错误</button>
+    <div id='div_ft7_4' class="collapse in" align="left">
+    <pre>
+    
+ft7_4: Traceback (most recent call last):
+  File "F:\qianchengdai-interface-v3\lib\ddt_20190803_174022.py", line 165, in wrapper
+    return func(self, *args, **kwargs)
+  File "F:\qianchengdai-interface-v3\cases\test_buy.py", line 35, in test_buy
+    new_url = HandleContext().addcat(response_url)
+  File "F:\qianchengdai-interface-v3\script\handle_aidong_context.py", line 45, in addcat
+    data = cls.id_replace(data)
+  File "F:\qianchengdai-interface-v3\script\handle_aidong_context.py", line 10, in id_replace
+    if re.search(cls.course_pattern, data):
+  File "E:\python\lib\re.py", line 183, in search
+    return _compile(pattern, flags).search(string)
+TypeError: expected string or bytes-like object
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='ft7_5' class='none'>
+    <td class='errorCase'><div class='testcase'>test_buy_5_None</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_ft7_5' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_ft7_5'>错误</button>
+    <div id='div_ft7_5' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_ft7_5' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_ft7_5'>错误</button>
+    <div id='div_ft7_5' class="collapse in" align="left">
+    <pre>
+    
+ft7_5: Traceback (most recent call last):
+  File "F:\qianchengdai-interface-v3\lib\ddt_20190803_174022.py", line 165, in wrapper
+    return func(self, *args, **kwargs)
+  File "F:\qianchengdai-interface-v3\cases\test_buy.py", line 35, in test_buy
+    new_url = HandleContext().addcat(response_url)
+  File "F:\qianchengdai-interface-v3\script\handle_aidong_context.py", line 45, in addcat
+    data = cls.id_replace(data)
+  File "F:\qianchengdai-interface-v3\script\handle_aidong_context.py", line 10, in id_replace
+    if re.search(cls.course_pattern, data):
+  File "E:\python\lib\re.py", line 183, in search
+    return _compile(pattern, flags).search(string)
+TypeError: expected string or bytes-like object
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='ft7_6' class='none'>
+    <td class='errorCase'><div class='testcase'>test_buy_6_None</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_ft7_6' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_ft7_6'>错误</button>
+    <div id='div_ft7_6' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_ft7_6' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_ft7_6'>错误</button>
+    <div id='div_ft7_6' class="collapse in" align="left">
+    <pre>
+    
+ft7_6: Traceback (most recent call last):
+  File "F:\qianchengdai-interface-v3\lib\ddt_20190803_174022.py", line 165, in wrapper
+    return func(self, *args, **kwargs)
+  File "F:\qianchengdai-interface-v3\cases\test_buy.py", line 35, in test_buy
+    new_url = HandleContext().addcat(response_url)
+  File "F:\qianchengdai-interface-v3\script\handle_aidong_context.py", line 45, in addcat
+    data = cls.id_replace(data)
+  File "F:\qianchengdai-interface-v3\script\handle_aidong_context.py", line 10, in id_replace
+    if re.search(cls.course_pattern, data):
+  File "E:\python\lib\re.py", line 183, in search
+    return _compile(pattern, flags).search(string)
+TypeError: expected string or bytes-like object
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='ft7_7' class='none'>
+    <td class='errorCase'><div class='testcase'>test_buy_7_None</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_ft7_7' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_ft7_7'>错误</button>
+    <div id='div_ft7_7' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_ft7_7' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_ft7_7'>错误</button>
+    <div id='div_ft7_7' class="collapse in" align="left">
+    <pre>
+    
+ft7_7: Traceback (most recent call last):
+  File "F:\qianchengdai-interface-v3\lib\ddt_20190803_174022.py", line 165, in wrapper
+    return func(self, *args, **kwargs)
+  File "F:\qianchengdai-interface-v3\cases\test_buy.py", line 35, in test_buy
+    new_url = HandleContext().addcat(response_url)
+  File "F:\qianchengdai-interface-v3\script\handle_aidong_context.py", line 45, in addcat
+    data = cls.id_replace(data)
+  File "F:\qianchengdai-interface-v3\script\handle_aidong_context.py", line 10, in id_replace
+    if re.search(cls.course_pattern, data):
+  File "E:\python\lib\re.py", line 183, in search
+    return _compile(pattern, flags).search(string)
+TypeError: expected string or bytes-like object
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='ft7_8' class='none'>
+    <td class='errorCase'><div class='testcase'>test_buy_8_None</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_ft7_8' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_ft7_8'>错误</button>
+    <div id='div_ft7_8' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_ft7_8' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_ft7_8'>错误</button>
+    <div id='div_ft7_8' class="collapse in" align="left">
+    <pre>
+    
+ft7_8: Traceback (most recent call last):
+  File "F:\qianchengdai-interface-v3\lib\ddt_20190803_174022.py", line 165, in wrapper
+    return func(self, *args, **kwargs)
+  File "F:\qianchengdai-interface-v3\cases\test_buy.py", line 35, in test_buy
+    new_url = HandleContext().addcat(response_url)
+  File "F:\qianchengdai-interface-v3\script\handle_aidong_context.py", line 45, in addcat
+    data = cls.id_replace(data)
+  File "F:\qianchengdai-interface-v3\script\handle_aidong_context.py", line 10, in id_replace
+    if re.search(cls.course_pattern, data):
+  File "E:\python\lib\re.py", line 183, in search
+    return _compile(pattern, flags).search(string)
+TypeError: expected string or bytes-like object
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr class='errorClass warning'>
+    <td>test_coursedetails.TestCourseL</td>
+    <td class="text-center">3</td>
+    <td class="text-center">0</td>
+    <td class="text-center">0</td>
+    <td class="text-center">3</td>
+    <td class="text-center"><a href="javascript:showClassDetail('c8',3)" class="detail" id='c8'>详细</a></td>
+</tr>
+
+<tr id='ft8_1' class='none'>
+    <td class='errorCase'><div class='testcase'>test_01_coursel_1_课程列表</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_ft8_1' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_ft8_1'>错误</button>
+    <div id='div_ft8_1' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_ft8_1' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_ft8_1'>错误</button>
+    <div id='div_ft8_1' class="collapse in" align="left">
+    <pre>
+    
+ft8_1: Traceback (most recent call last):
+  File "F:\qianchengdai-interface-v3\lib\ddt_20190803_174022.py", line 165, in wrapper
+    return func(self, *args, **kwargs)
+  File "F:\qianchengdai-interface-v3\cases\test_coursedetails.py", line 36, in test_01_coursel
+    actual_result = token_request(method=method, url=new_url)
+  File "F:\qianchengdai-interface-v3\script\add_token_requests.py", line 26, in __call__
+    request1.write_config(login_url=login_url,login_data=login_datas)  # 将登录接口获取到的token值写入到token_data.ini文件中
+AttributeError: 'Requests' object has no attribute 'write_config'
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='ft8_2' class='none'>
+    <td class='errorCase'><div class='testcase'>test_01_coursel_2_课程详情</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_ft8_2' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_ft8_2'>错误</button>
+    <div id='div_ft8_2' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_ft8_2' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_ft8_2'>错误</button>
+    <div id='div_ft8_2' class="collapse in" align="left">
+    <pre>
+    
+ft8_2: Traceback (most recent call last):
+  File "F:\qianchengdai-interface-v3\lib\ddt_20190803_174022.py", line 165, in wrapper
+    return func(self, *args, **kwargs)
+  File "F:\qianchengdai-interface-v3\cases\test_coursedetails.py", line 36, in test_01_coursel
+    actual_result = token_request(method=method, url=new_url)
+  File "F:\qianchengdai-interface-v3\script\add_token_requests.py", line 26, in __call__
+    request1.write_config(login_url=login_url,login_data=login_datas)  # 将登录接口获取到的token值写入到token_data.ini文件中
+AttributeError: 'Requests' object has no attribute 'write_config'
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='ft8_3' class='none'>
+    <td class='errorCase'><div class='testcase'>test_01_coursel_3_课程详情</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_ft8_3' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_ft8_3'>错误</button>
+    <div id='div_ft8_3' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_ft8_3' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_ft8_3'>错误</button>
+    <div id='div_ft8_3' class="collapse in" align="left">
+    <pre>
+    
+ft8_3: Traceback (most recent call last):
+  File "F:\qianchengdai-interface-v3\lib\ddt_20190803_174022.py", line 165, in wrapper
+    return func(self, *args, **kwargs)
+  File "F:\qianchengdai-interface-v3\cases\test_coursedetails.py", line 36, in test_01_coursel
+    actual_result = token_request(method=method, url=new_url)
+  File "F:\qianchengdai-interface-v3\script\add_token_requests.py", line 26, in __call__
+    request1.write_config(login_url=login_url,login_data=login_datas)  # 将登录接口获取到的token值写入到token_data.ini文件中
+AttributeError: 'Requests' object has no attribute 'write_config'
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr class='errorClass warning'>
+    <td>test_coursequeue.TestCourseL</td>
+    <td class="text-center">4</td>
+    <td class="text-center">0</td>
+    <td class="text-center">0</td>
+    <td class="text-center">4</td>
+    <td class="text-center"><a href="javascript:showClassDetail('c9',4)" class="detail" id='c9'>详细</a></td>
+</tr>
+
+<tr id='ft9_1' class='none'>
+    <td class='errorCase'><div class='testcase'>test_course_queue_1_课程列表</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_ft9_1' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_ft9_1'>错误</button>
+    <div id='div_ft9_1' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_ft9_1' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_ft9_1'>错误</button>
+    <div id='div_ft9_1' class="collapse in" align="left">
+    <pre>
+    
+ft9_1: Traceback (most recent call last):
+  File "F:\qianchengdai-interface-v3\lib\ddt_20190803_174022.py", line 165, in wrapper
+    return func(self, *args, **kwargs)
+  File "F:\qianchengdai-interface-v3\cases\test_coursequeue.py", line 36, in test_course_queue
+    actual_result = token_request(method=method, url=new_url)
+  File "F:\qianchengdai-interface-v3\script\add_token_requests.py", line 26, in __call__
+    request1.write_config(login_url=login_url,login_data=login_datas)  # 将登录接口获取到的token值写入到token_data.ini文件中
+AttributeError: 'Requests' object has no attribute 'write_config'
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='ft9_2' class='none'>
+    <td class='errorCase'><div class='testcase'>test_course_queue_2_课程排队</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_ft9_2' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_ft9_2'>错误</button>
+    <div id='div_ft9_2' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_ft9_2' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_ft9_2'>错误</button>
+    <div id='div_ft9_2' class="collapse in" align="left">
+    <pre>
+    
+ft9_2: Traceback (most recent call last):
+  File "F:\qianchengdai-interface-v3\lib\ddt_20190803_174022.py", line 165, in wrapper
+    return func(self, *args, **kwargs)
+  File "F:\qianchengdai-interface-v3\cases\test_coursequeue.py", line 35, in test_course_queue
+    new_url = HandleContext().course_queue(response_url)
+  File "F:\qianchengdai-interface-v3\script\handle_aidong_context.py", line 40, in course_queue
+    data = cls.id_replace(data)
+  File "F:\qianchengdai-interface-v3\script\handle_aidong_context.py", line 16, in id_replace
+    id = str(getattr(cls, "id"))
+AttributeError: type object 'HandleContext' has no attribute 'id'
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='ft9_3' class='none'>
+    <td class='errorCase'><div class='testcase'>test_course_queue_3_排队成功</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_ft9_3' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_ft9_3'>错误</button>
+    <div id='div_ft9_3' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_ft9_3' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_ft9_3'>错误</button>
+    <div id='div_ft9_3' class="collapse in" align="left">
+    <pre>
+    
+ft9_3: Traceback (most recent call last):
+  File "F:\qianchengdai-interface-v3\lib\ddt_20190803_174022.py", line 165, in wrapper
+    return func(self, *args, **kwargs)
+  File "F:\qianchengdai-interface-v3\cases\test_coursequeue.py", line 35, in test_course_queue
+    new_url = HandleContext().course_queue(response_url)
+  File "F:\qianchengdai-interface-v3\script\handle_aidong_context.py", line 40, in course_queue
+    data = cls.id_replace(data)
+  File "F:\qianchengdai-interface-v3\script\handle_aidong_context.py", line 16, in id_replace
+    id = str(getattr(cls, "id"))
+AttributeError: type object 'HandleContext' has no attribute 'id'
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='ft9_4' class='none'>
+    <td class='errorCase'><div class='testcase'>test_course_queue_4_重复排队</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_ft9_4' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_ft9_4'>错误</button>
+    <div id='div_ft9_4' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_ft9_4' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_ft9_4'>错误</button>
+    <div id='div_ft9_4' class="collapse in" align="left">
+    <pre>
+    
+ft9_4: Traceback (most recent call last):
+  File "F:\qianchengdai-interface-v3\lib\ddt_20190803_174022.py", line 165, in wrapper
+    return func(self, *args, **kwargs)
+  File "F:\qianchengdai-interface-v3\cases\test_coursequeue.py", line 35, in test_course_queue
+    new_url = HandleContext().course_queue(response_url)
+  File "F:\qianchengdai-interface-v3\script\handle_aidong_context.py", line 40, in course_queue
+    data = cls.id_replace(data)
+  File "F:\qianchengdai-interface-v3\script\handle_aidong_context.py", line 16, in id_replace
+    id = str(getattr(cls, "id"))
+AttributeError: type object 'HandleContext' has no attribute 'id'
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='total_row' class="text-center active">
+    <td>总计</td>
+    <td>77</td>
+    <td>0</td>
+    <td>33</td>
+    <td>44</td>
+    <td>通过率：0.00%</td>
+</tr>
+</table>
+
+<div id='ending'>&nbsp;</div>
+    <div style=" position:fixed;right:50px; bottom:30px; width:20px; height:20px;cursor:pointer">
+    <a href="#"><span class="glyphicon glyphicon-eject" style = "font-size:30px;" aria-hidden="true">
+    </span></a></div>
+    
+</body>
+</html>
